@@ -1,9 +1,9 @@
-import React from "react";
+import Hero from "@/components/sections/Hero";
 
 const page = () => {
   return (
     <div>
-      <h1>This is Home page</h1>
+      <Hero></Hero>
     </div>
   );
 };

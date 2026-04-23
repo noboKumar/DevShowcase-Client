@@ -24,7 +24,7 @@ const NavBar = () => {
         <div>
           {navLinks.map((link) => (
             <Link
-              className="m-2 text-lg font-medium text-gray-600 hover:text-indigo-500 hover:underline active:text-gray-600"
+              className="m-2 font-medium text-gray-600 hover:text-indigo-500 hover:underline active:text-gray-600"
               href={link.path}
               key={link.name}
             >
