@@ -1,4 +1,5 @@
 import { Button } from "../ui/button";
+import { ThemeToggler } from "../ui/ThemeToggler";
 import Logo from "./Logo";
 import Link from "next/link";
 
@@ -33,7 +34,8 @@ const NavBar = () => {
           ))}
         </div>
       </div>
-      <div>
+      <div className="flex items-center gap-5">
+        <ThemeToggler></ThemeToggler>
         <Button>Get Started</Button>
       </div>
     </div>
