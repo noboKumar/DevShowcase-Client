@@ -6,10 +6,10 @@ const Logo = () => {
   return (
     <div>
       <Link className="flex items-center gap-2" href={"/"}>
-        <h1 className="w-fit rounded-full bg-indigo-600 p-2 text-xl font-bold text-white">
+        <h1 className="w-fit rounded-full bg-primary p-2 text-xl font-bold text-white">
           <SeparatorVertical />
         </h1>
-        <h1 className="text-xl font-bold text-indigo-600">Dev ShowCase</h1>
+        <h1 className="text-xl font-bold text-primary">Dev ShowCase</h1>
       </Link>
     </div>
   );

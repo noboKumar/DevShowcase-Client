@@ -3,13 +3,13 @@ import { TestimonialCard } from "../ui/TestimonialCard";
 
 const Testimonial = () => {
   return (
-    <section className="bg-slate-50 py-20">
+    <section className="rounded-lg bg-slate-50 py-20 dark:bg-slate-900">
       <div className="container mx-auto px-4">
         <div className="mb-16 text-center">
-          <h2 className="mb-4 text-3xl font-bold text-slate-900">
+          <h2 className="mb-4 text-3xl font-bold text-slate-900 dark:text-slate-200">
             What Developers Say
           </h2>
-          <p className="mx-auto max-w-2xl text-slate-600">
+          <p className="mx-auto max-w-2xl text-slate-600 dark:text-slate-200">
             Join thousands of developers who are already showcasing their work.
           </p>
         </div>
