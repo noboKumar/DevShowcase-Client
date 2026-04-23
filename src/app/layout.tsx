@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./styles/globals.css";
 import NavBar from "@/components/shared/NavBar";
+import Footer from "@/components/shared/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,9 +35,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} } h-full antialiased`}
     >
-      <body className="mx-auto w-11/12">
+      <body>
         <NavBar></NavBar>
-        {children}
+        <div className="mx-auto w-11/12">{children}</div>
+        <Footer></Footer>
       </body>
     </html>
   );
