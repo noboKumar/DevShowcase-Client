@@ -40,9 +40,9 @@ export default function RootLayout({
       <body>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+          defaultTheme="light"
+          enableSystem={false}
+          storageKey="theme"
         >
           <NavBar></NavBar>
           <div className="mx-auto min-h-screen w-11/12">{children}</div>

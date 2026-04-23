@@ -125,3 +125,10 @@
     @apply bg-background text-foreground;
   }
 }
+html.dark .light-icon {
+  display: none;
+}
+
+html:not(.dark) .dark-icon {
+  display: none;
+}
