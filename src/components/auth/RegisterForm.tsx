@@ -15,18 +15,14 @@ const RegisterForm = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     setImageFile(file);
-    setUploadedUrl(null);
     setUploadError(null);
-
     const reader = new FileReader();
     reader.onloadend = () => setImagePreview(reader.result as string);
     reader.readAsDataURL(file);
@@ -35,51 +31,50 @@ const RegisterForm = () => {
   const handleRemoveImage = () => {
     setImageFile(null);
     setImagePreview(null);
-    setUploadedUrl(null);
     setUploadError(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const uploadToImgbb = async (): Promise<string | null> => {
     if (!imageFile) return null;
-
-    setUploading(true);
-    setUploadError(null);
-
-    try {
-      const formData = new FormData();
-      formData.append("image", imageFile);
-
-      const res = await fetch(
-        `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API}`,
-        { method: "POST", body: formData },
-      );
-
-      const data = await res.json();
-
-      if (!data.success) throw new Error("Upload failed");
-
-      const url = data.data.url as string;
-      setUploadedUrl(url);
-      return url;
-    } catch {
-      setUploadError("Image upload failed. Please try again.");
-      return null;
-    } finally {
-      setUploading(false);
-    }
+    const body = new FormData();
+    body.append("image", imageFile);
+    const res = await fetch(
+      `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API}`,
+      { method: "POST", body },
+    );
+    const data = await res.json();
+    if (!data.success) throw new Error("Upload failed");
+    return data.data.url as string;
   };
 
-  const handleSubmit = async () => {
-    let avatarUrl: string | null = null;
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+
+    const username = form.get("username") as string;
+    const email = form.get("email") as string;
+    const password = form.get("password") as string;
+
+    let photo: string | null = null;
 
     if (imageFile) {
-      avatarUrl = await uploadToImgbb();
-      if (!avatarUrl) return; // stop if upload failed
+      setUploading(true);
+      setUploadError(null);
+      try {
+        photo = await uploadToImgbb();
+      } catch {
+        setUploadError("Image upload failed. Please try again.");
+        setUploading(false);
+        return;
+      }
+      setUploading(false);
     }
 
-    // TODO: pass avatarUrl to your backend registration logic
-    console.log("Avatar URL:", avatarUrl);
+    const payload = { username, email, password, photo };
+
+    // TODO: pass finalData to your backend
+    console.log("Form Data:", payload);
   };
 
   return (
@@ -104,7 +99,7 @@ const RegisterForm = () => {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* Avatar Upload */}
           <div className="space-y-1.5">
             <Label className="text-sm font-medium text-gray-700 dark:text-slate-200">
@@ -162,11 +157,6 @@ const RegisterForm = () => {
             {uploadError && (
               <p className="text-xs text-red-500">{uploadError}</p>
             )}
-            {uploadedUrl && (
-              <p className="text-xs text-green-600">
-                ✓ Image uploaded successfully
-              </p>
-            )}
           </div>
 
           {/* Username */}
@@ -179,8 +169,10 @@ const RegisterForm = () => {
             </Label>
             <Input
               id="username"
+              name="username"
               type="text"
               placeholder="cooldev42"
+              required
               className="h-10 border-gray-200 focus-visible:border-indigo-500 focus-visible:ring-indigo-500"
             />
           </div>
@@ -195,8 +187,10 @@ const RegisterForm = () => {
             </Label>
             <Input
               id="email"
+              name="email"
               type="email"
               placeholder="you@example.com"
+              required
               className="h-10 border-gray-200 focus-visible:border-indigo-500 focus-visible:ring-indigo-500"
             />
           </div>
@@ -212,13 +206,15 @@ const RegisterForm = () => {
             <div className="relative">
               <Input
                 id="password"
+                name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Create a strong password"
+                required
                 className="h-10 border-gray-200 pr-10 focus-visible:border-indigo-500 focus-visible:ring-indigo-500"
               />
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => setShowPassword((s) => !s)}
                 className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 transition-colors hover:text-gray-600"
               >
                 {showPassword ? (
@@ -245,7 +241,7 @@ const RegisterForm = () => {
 
           {/* Submit */}
           <Button
-            onClick={handleSubmit}
+            type="submit"
             disabled={uploading}
             className="h-10 w-full bg-indigo-600 font-medium text-white hover:bg-indigo-700 disabled:opacity-70"
           >
@@ -259,7 +255,6 @@ const RegisterForm = () => {
             </span>
           </div>
 
-          {/* GitHub OAuth */}
           <Button
             variant="outline"
             className="h-10 w-full border-gray-200 font-medium text-gray-700 hover:bg-gray-50"
@@ -267,7 +262,7 @@ const RegisterForm = () => {
             <FaGithub className="mr-2 h-4 w-4" />
             Continue with GitHub
           </Button>
-        </div>
+        </form>
 
         <p className="mt-8 text-center text-sm text-gray-500">
           Already have an account?{" "}
