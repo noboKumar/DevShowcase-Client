@@ -37,22 +37,22 @@ const Hero = () => {
             <AvatarGroup>
               <Avatar>
                 <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
+                  src="https://avatars.githubusercontent.com/u/1848375?v=4"
+                  alt="@jhankar_vai"
                 />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <Avatar>
                 <AvatarImage
-                  src="https://github.com/maxleiter.png"
-                  alt="@maxleiter"
+                  src="https://avatars.githubusercontent.com/u/67517709?v=4"
+                  alt="@mezba_vai"
                 />
                 <AvatarFallback>LR</AvatarFallback>
               </Avatar>
               <Avatar>
                 <AvatarImage
-                  src="https://github.com/evilrabbit.png"
-                  alt="@evilrabbit"
+                  src="https://avatars.githubusercontent.com/u/88623086?v=4"
+                  alt="@safayat_vai"
                 />
                 <AvatarFallback>ER</AvatarFallback>
               </Avatar>
