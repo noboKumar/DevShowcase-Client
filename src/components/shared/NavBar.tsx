@@ -19,13 +19,13 @@ const NavBar = () => {
     },
   ];
   return (
-    <div className="sticky top-0 z-50 mx-auto mt-2 flex w-10/12 items-center justify-between rounded-full border-2 border-gray-200 dark:border-gray-700 bg-white/30 dark:bg-gray-800/30 px-8 py-4 backdrop-blur-md">
+    <div className="sticky top-0 z-50 mx-auto mt-2 flex w-10/12 items-center justify-between rounded-full border-2 border-gray-200 bg-white/30 px-8 py-4 backdrop-blur-md dark:border-gray-700 dark:bg-gray-800/30">
       <div className="flex items-center gap-5">
         <Logo></Logo>
         <div>
           {navLinks.map((link) => (
             <Link
-              className="m-2 font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-500 hover:underline active:text-gray-600"
+              className="m-2 font-medium text-gray-600 hover:text-indigo-500 hover:underline active:text-gray-600 dark:text-gray-300"
               href={link.path}
               key={link.name}
             >
@@ -36,7 +36,9 @@ const NavBar = () => {
       </div>
       <div className="flex items-center gap-5">
         <ThemeToggler></ThemeToggler>
-        <Button>Get Started</Button>
+        <Button asChild>
+          <Link href="/login">Get Started</Link>
+        </Button>
       </div>
     </div>
   );
