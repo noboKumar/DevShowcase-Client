@@ -6,7 +6,7 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       {/* Left Panel */}
-      <Image src={registerSvg} alt="register svg"></Image>
+      <Image loading="eager" src={registerSvg} alt="register svg"></Image>
 
       {/* Right Panel — Form */}
       <RegisterForm />

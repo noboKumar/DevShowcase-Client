@@ -9,6 +9,8 @@ import { Separator } from "@/components/ui/separator";
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,8 +37,8 @@ const RegisterForm = () => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const uploadToImgbb = async (): Promise<string | null> => {
-    if (!imageFile) return null;
+  const uploadToImgbb = async (): Promise<string | undefined> => {
+    if (!imageFile) return undefined;
     const body = new FormData();
     body.append("image", imageFile);
     const res = await fetch(
@@ -52,11 +54,11 @@ const RegisterForm = () => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
 
-    const username = form.get("username") as string;
+    const name = form.get("username") as string;
     const email = form.get("email") as string;
     const password = form.get("password") as string;
 
-    let photo: string | null = null;
+    let photo: string | undefined = undefined;
 
     if (imageFile) {
       setUploading(true);
@@ -71,10 +73,28 @@ const RegisterForm = () => {
       setUploading(false);
     }
 
-    const payload = { username, email, password, photo };
+    console.log(name, email, password, photo);
 
-    // TODO: pass finalData to your backend
-    console.log("Form Data:", payload);
+    // better auth API
+    const { data, error } = await authClient.signUp.email({
+      name,
+      email,
+      password,
+      image: photo,
+
+      callbackURL: "/",
+    });
+
+    if (error) {
+      toast.error(error.message);
+      console.log(error.message);
+      return;
+    }
+
+    if (data) {
+      toast.success("Account created successfully!");
+      console.log(data);
+    }
   };
 
   return (

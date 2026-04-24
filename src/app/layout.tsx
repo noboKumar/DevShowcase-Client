@@ -4,6 +4,7 @@ import "./styles/globals.css";
 import NavBar from "@/components/shared/NavBar";
 import Footer from "@/components/shared/Footer";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
           enableSystem={false}
           storageKey="theme"
         >
+          <Toaster position="top-center" />
           <NavBar></NavBar>
           <div className="mx-auto min-h-screen w-11/12">{children}</div>
           <Footer></Footer>
