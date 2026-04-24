@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -86,7 +87,7 @@ const LoginForm = () => {
             variant="outline"
             className="h-10 w-full border-gray-200 font-medium text-gray-700 hover:bg-gray-50"
           >
-            {/* <Github className="mr-2 h-4 w-4" /> */}
+            <FaGithub className="mr-2 h-4 w-4" />
             Continue with GitHub
           </Button>
         </div>

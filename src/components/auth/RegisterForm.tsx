@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useState, useRef } from "react";
 import Image from "next/image";
+import { FaGithub } from "react-icons/fa";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -83,7 +84,7 @@ const RegisterForm = () => {
 
   return (
     <div className="flex w-full items-center justify-center rounded-2xl bg-white p-8 lg:w-1/2 dark:bg-slate-800">
-      <div className="w-full max-w-sm">
+      <div className="w-full max-w-lg">
         {/* Mobile logo */}
         <div className="mb-8 flex items-center gap-2 lg:hidden">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600">
@@ -263,6 +264,7 @@ const RegisterForm = () => {
             variant="outline"
             className="h-10 w-full border-gray-200 font-medium text-gray-700 hover:bg-gray-50"
           >
+            <FaGithub className="mr-2 h-4 w-4" />
             Continue with GitHub
           </Button>
         </div>
