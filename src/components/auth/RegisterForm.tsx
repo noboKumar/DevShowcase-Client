@@ -11,6 +11,7 @@ import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +20,7 @@ const RegisterForm = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -76,17 +78,24 @@ const RegisterForm = () => {
     console.log(name, email, password, photo);
 
     // better auth API
-    const { data, error } = await authClient.signUp.email({
-      name,
-      email,
-      password,
-      image: photo,
+    const { data, error } = await authClient.signUp.email(
+      {
+        name,
+        email,
+        password,
+        image: photo,
 
-      callbackURL: "/",
-    });
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+      },
+    );
 
     if (error) {
-      toast.error(error.message);
+      toast.error("Registration failed: " + error.message);
       console.log(error.message);
       return;
     }
@@ -159,7 +168,7 @@ const RegisterForm = () => {
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="flex h-10 w-full items-center gap-2 rounded-md border border-dashed border-gray-200 px-3 text-sm text-gray-400 transition-colors hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-500"
+                className="flex h-10 w-full cursor-pointer items-center gap-2 rounded-md border border-dashed border-gray-200 px-3 text-sm text-gray-400 transition-colors hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-500"
               >
                 <Upload className="h-4 w-4 shrink-0" />
                 <span>Click to upload an image</span>
@@ -265,7 +274,7 @@ const RegisterForm = () => {
             disabled={uploading}
             className="h-10 w-full bg-indigo-600 font-medium text-white hover:bg-indigo-700 disabled:opacity-70"
           >
-            {uploading ? "Uploading image…" : "Create Account"}
+            {uploading ? "Creating Account..." : "Create Account"}
           </Button>
 
           <div className="relative my-4">
