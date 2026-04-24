@@ -1,4 +1,11 @@
 "use client";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
+  AvatarImage,
+} from "../ui/avatar";
 import { BackgroundRippleEffect } from "../ui/background-ripple-effect";
 import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
@@ -17,13 +24,44 @@ const Hero = () => {
           high-fidelity engineering projects and connect with top-tier tech
           companies.
         </p>
-        <div className="space-x-4 text-center my-5">
+        <div className="my-5 space-x-4 text-center">
           <Button className="rounded-full px-5 py-6">
             Explore Projects <ArrowRight></ArrowRight>{" "}
           </Button>
           <Button className="rounded-full px-5 py-6" variant={"outline"}>
             Add Project
           </Button>
+        </div>
+        <div className="flex flex-col items-center py-5">
+          <div>
+            <AvatarGroup>
+              <Avatar>
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="@shadcn"
+                />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <Avatar>
+                <AvatarImage
+                  src="https://github.com/maxleiter.png"
+                  alt="@maxleiter"
+                />
+                <AvatarFallback>LR</AvatarFallback>
+              </Avatar>
+              <Avatar>
+                <AvatarImage
+                  src="https://github.com/evilrabbit.png"
+                  alt="@evilrabbit"
+                />
+                <AvatarFallback>ER</AvatarFallback>
+              </Avatar>
+              <AvatarGroupCount className="bg-gray-300 font-medium">+5</AvatarGroupCount>
+            </AvatarGroup>
+          </div>
+          <div className="font-medium text-gray-400">
+            Joined by 10k+ engineers this month
+          </div>
         </div>
       </div>
     </div>
