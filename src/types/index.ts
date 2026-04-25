@@ -4,3 +4,15 @@ export interface UserFormData {
   password: string;
   photo: string;
 }
+
+export interface Project {
+  id: string;
+  userId: string;
+  title: string;
+  category: string;
+  description: string;
+  githubRepo: string;
+  liveLink: string;
+  techStack: string[];
+  thumbnail: string;
+}

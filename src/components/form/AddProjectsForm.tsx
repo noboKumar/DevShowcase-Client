@@ -18,7 +18,20 @@ import { FaGithub } from "react-icons/fa";
 import { axiosInstance } from "@/lib/axios";
 import { toast } from "sonner";
 
-const categories = ["Full Stack", "Frontend", "Backend"];
+const categories = [
+  "Frontend",
+  "Backend",
+  "Full Stack",
+  "Mobile App",
+  "A1 / ML",
+  "DevOps / Infrastructure",
+  "CLI Tool",
+  "Browser Extension / SDK",
+  "API / SDK",
+  "Game",
+  "Open Source Library",
+  "Other",
+];
 
 const AddProjectsForm = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
