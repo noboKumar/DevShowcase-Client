@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { FaGithub } from "react-icons/fa";
 import { axiosInstance } from "@/lib/axios";
+import { toast } from "sonner";
 
 const categories = ["Full Stack", "Frontend", "Backend"];
 
@@ -60,6 +61,7 @@ const AddProjectsForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
+    const formElement = e.currentTarget; // capture DOM reference IMMEDIATELY
 
     let thumbnailUrl: string | null = null;
 
@@ -77,29 +79,41 @@ const AddProjectsForm = () => {
     }
 
     const techDataForm = form.get("tech-stack");
-    const techStack = techDataForm
-      ? techDataForm
-          .toString()
-          .split(",")
-          .map((tag) => tag.trim())
-      : [];
 
     const data = {
-      title: form.get("title"),
-      description: form.get("description"),
-      category: form.get("category"),
-      techStack: techStack,
-      thumbnail: thumbnailUrl,
-      githubRepo: form.get("github"),
-      liveLink: form.get("liveDemo"),
+      title: String(form.get("title") ?? ""),
+      description: String(form.get("description") ?? ""),
+      category: String(form.get("category") ?? ""),
+      githubRepo: String(form.get("github") ?? ""),
+      liveLink: String(form.get("liveDemo") ?? ""),
+      thumbnail: thumbnailUrl ?? "",
+      techStack:
+        typeof techDataForm === "string"
+          ? techDataForm
+              .split(",")
+              .map((tag) => tag.trim())
+              .filter((tag) => tag.length > 0)
+          : [],
     };
 
     // post projects in  backend
     try {
       const res = await axiosInstance.post("/projects/add-project", data);
       console.log("project posted", res.data);
+      toast.success("Project posted successfully");
+
+      formElement.reset();
+
+      setImagePreview(null);
+      setImageFile(null);
+      setUploadError(null);
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (error) {
       console.error(error);
+      toast.error("Project posting failed. Please try again.");
     }
     console.log("Project Data:", data);
   };
