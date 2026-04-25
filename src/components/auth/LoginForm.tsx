@@ -14,9 +14,11 @@ import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
     const form = new FormData(e.currentTarget);
 
@@ -46,6 +48,7 @@ const LoginForm = () => {
         },
       },
     );
+    setIsLoading(false);
 
     console.log(data);
   };
@@ -114,10 +117,11 @@ const LoginForm = () => {
 
           {/* Submit */}
           <Button
+            disabled={isLoading}
             type="submit"
             className="mt-2 h-10 w-full bg-indigo-600 font-medium text-white hover:bg-indigo-700"
           >
-            Sign In
+            {isLoading ? "Logging in…" : "Login in"}
           </Button>
 
           <div className="relative my-4">
