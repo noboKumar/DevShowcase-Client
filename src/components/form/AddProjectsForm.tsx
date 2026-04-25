@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { X, Upload, ImageIcon, Globe, Loader2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,50 +15,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FaGithub } from "react-icons/fa";
+import { axiosInstance } from "@/lib/axios";
 
-const PROJECT_GENRES = [
-  "Full Stack",
-  "Frontend",
-  "Backend",
-  "Mobile App",
-  "AI / ML",
-  "DevOps / Infrastructure",
-  "CLI Tool",
-  "Browser Extension",
-  "API / SDK",
-  "Game",
-  "Open Source Library",
-  "Other",
-];
+const categories = ["Full Stack", "Frontend", "Backend"];
 
 const AddProjectsForm = () => {
-  const [techInput, setTechInput] = useState("");
-  const [techStack, setTechStack] = useState<string[]>([]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  //   tech stack
-  const handleTechKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "," || e.key === "Enter") {
-      e.preventDefault();
-      addTech();
-    }
-  };
-
-  const addTech = () => {
-    const tags = techInput
-      .split(",")
-      .map((tag) => tag.trim())
-      .filter((tag) => tag && !techStack.includes(tag));
-    if (tags.length) setTechStack((prev) => [...prev, ...tags]);
-    setTechInput("");
-  };
-
-  const removeTech = (tag: string) =>
-    setTechStack((prev) => prev.filter((t) => t !== tag));
 
   /*  Thumbnail */
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,17 +76,31 @@ const AddProjectsForm = () => {
       setUploading(false);
     }
 
+    const techDataForm = form.get("tech-stack");
+    const techStack = techDataForm
+      ? techDataForm
+          .toString()
+          .split(",")
+          .map((tag) => tag.trim())
+      : [];
+
     const data = {
       title: form.get("title"),
       description: form.get("description"),
-      genre: form.get("genre"),
-      techStack,
-      github: form.get("github"),
-      liveDemo: form.get("liveDemo"),
+      category: form.get("category"),
+      techStack: techStack,
       thumbnail: thumbnailUrl,
+      githubRepo: form.get("github"),
+      liveLink: form.get("liveDemo"),
     };
 
-    // TODO: send `data` to your backend
+    // post projects in  backend
+    try {
+      const res = await axiosInstance.post("/projects/add-project", data);
+      console.log("project posted", res.data);
+    } catch (error) {
+      console.error(error);
+    }
     console.log("Project Data:", data);
   };
 
@@ -202,20 +181,20 @@ const AddProjectsForm = () => {
               <div className="space-y-5 md:col-span-2">
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700 dark:text-slate-200">
-                    Project Genre <span className="text-red-400">*</span>
+                    Project Category <span className="text-red-400">*</span>
                   </Label>
-                  <Select name="genre" required>
+                  <Select name="category" required>
                     <SelectTrigger className="h-11 cursor-pointer border-slate-200 bg-slate-50 focus:ring-indigo-500">
-                      <SelectValue placeholder="Select a genre…" />
+                      <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent className="p-2">
-                      {PROJECT_GENRES.map((genre) => (
+                      {categories.map((category) => (
                         <SelectItem
                           className="cursor-pointer"
-                          key={genre}
-                          value={genre}
+                          key={category}
+                          value={category}
                         >
-                          {genre}
+                          {category}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -228,42 +207,11 @@ const AddProjectsForm = () => {
                   </Label>
                   <div className="flex gap-2">
                     <Input
-                      value={techInput}
-                      onChange={(e) => setTechInput(e.target.value)}
-                      onKeyDown={handleTechKeyDown}
-                      placeholder="React, Node.js, Prisma… (comma or Enter to add)"
+                      name="tech-stack"
+                      placeholder="React, Node.js, Prisma… (Comma separated)"
                       className="h-11 border-slate-200 bg-slate-50 focus-visible:border-indigo-500 focus-visible:ring-indigo-500"
                     />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={addTech}
-                      className="h-11 shrink-0 border-slate-200 text-slate-600 hover:bg-slate-100"
-                    >
-                      Add
-                    </Button>
                   </div>
-
-                  {techStack.length > 0 && (
-                    <div className="flex flex-wrap gap-2 pt-1">
-                      {techStack.map((tag) => (
-                        <Badge
-                          key={tag}
-                          variant="secondary"
-                          className="gap-1.5 rounded-full bg-indigo-50 pr-2 pl-3 text-indigo-700 hover:bg-indigo-100"
-                        >
-                          {tag}
-                          <button
-                            type="button"
-                            onClick={() => removeTech(tag)}
-                            className="cursor-pointer rounded-full p-0.5 transition-colors hover:bg-indigo-200"
-                          >
-                            <X className="h-3 w-3" />
-                          </button>
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
