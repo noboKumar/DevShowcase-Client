@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function RegisterPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="md:flex min-h-screen items-center justify-center">
       {/* Left Panel */}
       <Image priority src={registerSvg} alt="register svg"></Image>
 

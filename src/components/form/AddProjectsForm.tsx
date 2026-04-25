@@ -127,10 +127,10 @@ const AddProjectsForm = () => {
 
   return (
     <main className="my-5 min-h-screen rounded-2xl bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-200">
-      <section className="mx-auto max-w-4xl px-6 py-12">
+      <section className="mx-auto max-w-4xl px-1 py-12 md:px-6">
         {/* Header */}
         <div className="mb-10">
-          <h1 className="mb-2 text-4xl font-black tracking-tight text-slate-900 dark:text-slate-200">
+          <h1 className="mb-2 text-2xl font-black tracking-tight text-slate-900 md:text-4xl dark:text-slate-200">
             Submit Your Project
           </h1>
           <p className="text-slate-500 dark:text-slate-400">

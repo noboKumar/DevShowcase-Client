@@ -109,16 +109,6 @@ const RegisterForm = () => {
   return (
     <div className="flex w-full items-center justify-center rounded-2xl bg-white p-8 lg:w-1/2 dark:bg-slate-800">
       <div className="w-full max-w-lg">
-        {/* Mobile logo */}
-        <div className="mb-8 flex items-center gap-2 lg:hidden">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600">
-            <Code2 className="h-5 w-5 text-white" />
-          </div>
-          <span className="text-xl font-bold tracking-tight text-gray-900">
-            DevShowcase
-          </span>
-        </div>
-
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-200">
             Create an account

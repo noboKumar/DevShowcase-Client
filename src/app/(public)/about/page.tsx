@@ -13,10 +13,10 @@ export default function AboutPage() {
   return (
     <div className="container mx-auto max-w-4xl px-4 py-16">
       <div className="mb-16 text-center">
-        <h1 className="mb-6 text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-200">
+        <h1 className="mb-6 text-3xl font-bold text-slate-900 md:text-5xl dark:text-slate-200">
           About DevShowcase
         </h1>
-        <p className="mx-auto max-w-3xl text-xl leading-relaxed text-slate-600 dark:text-slate-300">
+        <p className="mx-auto max-w-3xl md:text-xl leading-relaxed text-slate-600 dark:text-slate-300">
           We built DevShowcase to solve a simple problem: developers build
           amazing things every day, but often struggle to get their work in
           front of the right audience.
