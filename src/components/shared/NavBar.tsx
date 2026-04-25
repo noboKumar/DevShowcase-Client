@@ -1,4 +1,5 @@
 import NavBarUser from "../ui/NavBarUser";
+import NavMenu from "../ui/NavMenu";
 import { ThemeToggler } from "../ui/ThemeToggler";
 import Logo from "./Logo";
 import Link from "next/link";
@@ -19,10 +20,11 @@ const NavBar = () => {
     },
   ];
   return (
-    <div className="sticky top-0 z-50 mx-auto mt-2 flex w-10/12 items-center justify-between rounded-full border-2 border-gray-200 bg-white/30 px-8 py-4 backdrop-blur-md dark:border-gray-700 dark:bg-gray-800/30">
+    <div className="sticky top-0 z-50 mx-auto flex items-center justify-between border-2 border-gray-200 bg-white/30 px-2 py-4 backdrop-blur-md md:px-8 lg:mt-2 lg:w-10/12 lg:rounded-full dark:border-gray-700 dark:bg-gray-800/30">
       <div className="flex items-center gap-5">
+        <NavMenu></NavMenu>
         <Logo></Logo>
-        <div>
+        <div className="hidden lg:block">
           {navLinks.map((link) => (
             <Link
               className="m-2 font-medium text-gray-600 hover:text-indigo-500 hover:underline active:text-gray-600 dark:text-gray-300"
@@ -34,7 +36,7 @@ const NavBar = () => {
           ))}
         </div>
       </div>
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-2 lg:gap-5">
         <ThemeToggler></ThemeToggler>
         <NavBarUser></NavBarUser>
       </div>

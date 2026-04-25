@@ -52,8 +52,8 @@ const AddProjectsForm = () => {
   const addTech = () => {
     const tags = techInput
       .split(",")
-      .map((t) => t.trim())
-      .filter((t) => t && !techStack.includes(t));
+      .map((tag) => tag.trim())
+      .filter((tag) => tag && !techStack.includes(tag));
     if (tags.length) setTechStack((prev) => [...prev, ...tags]);
     setTechInput("");
   };
