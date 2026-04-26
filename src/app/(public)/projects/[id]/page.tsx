@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowLeft, Globe } from "lucide-react";
+import { Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FaGithub } from "react-icons/fa";
 import { getProjectDetails } from "@/lib/api";
+import BackBtn from "@/components/ui/BackBtn";
 
 const CATEGORY_COLORS: Record<string, string> = {
   Frontend: "bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300",
@@ -70,13 +70,8 @@ const ProjectDetailPage = async ({ params }: { params: { id: string } }) => {
   return (
     <main className="my-10 min-h-screen rounded-2xl bg-slate-50 dark:bg-slate-900">
       <div className="px-6 py-10">
-        <Link
-          href="/projects"
-          className="mb-8 inline-flex items-center gap-1.5 text-sm text-slate-500 transition-colors hover:text-slate-800 dark:text-slate-400 dark:hover:text-white"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Projects
-        </Link>
+        {/* Back btn */}
+        <BackBtn />
 
         <div className="mt-6 grid gap-8 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">

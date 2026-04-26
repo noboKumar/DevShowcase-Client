@@ -12,6 +12,7 @@ import { Delete, Eye, Pen } from "lucide-react";
 import { Project } from "@/types";
 import Image from "next/image";
 import { getMyProjects } from "@/lib/api";
+import Link from "next/link";
 
 const ManageProjectTable = async () => {
   const projectsData = await getMyProjects();
@@ -71,7 +72,9 @@ const ManageProjectTable = async () => {
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Eye className="h-4 w-4 text-slate-500" />
+                      <Link href={`/projects/${project.id}`}>
+                        <Eye className="h-4 w-4 text-blue-500" />
+                      </Link>
                     </Button>
                     <Button variant="ghost" size="icon" className="h-8 w-8">
                       <Pen className="h-4 w-4 text-blue-500" />
