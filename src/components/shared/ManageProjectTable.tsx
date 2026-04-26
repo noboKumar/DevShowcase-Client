@@ -7,11 +7,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "../ui/button";
-import { Delete, Eye, Pen } from "lucide-react";
 import { Project } from "@/types";
 import Image from "next/image";
 import { getMyProjects } from "@/lib/api";
+import { Button } from "../ui/button";
+import { Eye, Trash2 } from "lucide-react";
+import UpdateBtn from "../ui/UpdateBtn";
 import Link from "next/link";
 
 const ManageProjectTable = async () => {
@@ -20,7 +21,7 @@ const ManageProjectTable = async () => {
 
   return (
     <div>
-      <Table >
+      <Table>
         <TableHeader>
           <TableRow>
             <TableHead className="w-25">Project Details</TableHead>
@@ -71,16 +72,17 @@ const ManageProjectTable = async () => {
 
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                    {/* view btn */}
+                    <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
                       <Link href={`/projects/${project.id}`}>
                         <Eye className="h-4 w-4 text-blue-500" />
                       </Link>
                     </Button>
+                    {/* update btn */}
+                    <UpdateBtn projects={project} />
+                    {/* delete btn */}
                     <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Pen className="h-4 w-4 text-blue-500" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Delete className="h-4 w-4 text-red-500" />
+                      <Trash2 className="h-4 w-4 text-red-500" />
                     </Button>
                   </div>
                 </TableCell>
