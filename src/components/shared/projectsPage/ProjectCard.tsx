@@ -1,3 +1,5 @@
+"use client";
+
 import { Project } from "@/types";
 import {
   Card,
@@ -13,6 +15,7 @@ import { ArrowRight, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { FaGithub } from "react-icons/fa";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const CATEGORY_COLORS: Record<string, string> = {
   Frontend: "bg-sky-100 text-sky-700 border-sky-200",
@@ -42,8 +45,10 @@ const ProjectCard = ({ projects }: { projects: Project }) => {
   } = projects;
   const categoryClass = CATEGORY_COLORS[category] ?? CATEGORY_COLORS["Other"];
 
+  const user = projects.user;
+
   return (
-    <Card className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:bg-slate-700 pt-0">
+    <Card className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white pt-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:bg-slate-700">
       <div className="relative h-48 w-full shrink-0 overflow-hidden bg-slate-100">
         {thumbnail ? (
           <Image
@@ -68,58 +73,73 @@ const ProjectCard = ({ projects }: { projects: Project }) => {
         <CardDescription className="max-w-3xl">{description}</CardDescription>
       </CardHeader>
 
-      <CardContent className="flex items-center justify-between">
-        <div className="flex flex-wrap gap-2">
-          {techStack?.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {" "}
-              {techStack.slice(0, 4).map((tech) => (
-                <Badge
-                  key={tech}
-                  variant="secondary"
-                  className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-semibold tracking-wider text-slate-600 uppercase hover:bg-slate-200"
-                >
-                  {" "}
-                  {tech}{" "}
-                </Badge>
-              ))}{" "}
-              {techStack.length > 4 && (
-                <Badge
-                  variant="secondary"
-                  className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-semibold text-slate-400"
-                >
-                  {" "}
-                  +{techStack.length - 4}{" "}
-                </Badge>
-              )}{" "}
-            </div>
-          )}
+      <CardContent className="flex flex-col gap-5">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-wrap gap-2">
+            {techStack?.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {" "}
+                {techStack.slice(0, 4).map((tech) => (
+                  <Badge
+                    key={tech}
+                    variant="secondary"
+                    className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-semibold tracking-wider text-slate-600 uppercase hover:bg-slate-200 dark:bg-slate-400"
+                  >
+                    {" "}
+                    {tech}{" "}
+                  </Badge>
+                ))}{" "}
+                {techStack.length > 4 && (
+                  <Badge
+                    variant="secondary"
+                    className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-semibold text-slate-400 dark:bg-slate-400"
+                  >
+                    {" "}
+                    +{techStack.length - 4}{" "}
+                  </Badge>
+                )}{" "}
+              </div>
+            )}
+          </div>
+
+          {/* GitHub + Live icons */}
+          <div className="flex items-center gap-3">
+            {githubRepo && (
+              <a
+                href={githubRepo}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="text-slate-400 transition-colors hover:text-slate-700"
+              >
+                <FaGithub className="h-5 w-5" />
+              </a>
+            )}
+            {liveLink && (
+              <a
+                href={liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Live demo"
+                className="text-slate-400 transition-colors hover:text-slate-700"
+              >
+                <Globe className="h-5 w-5" />
+              </a>
+            )}
+          </div>
         </div>
 
-        {/* GitHub + Live icons */}
-        <div className="flex items-center gap-3">
-          {githubRepo && (
-            <a
-              href={githubRepo}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="text-slate-400 transition-colors hover:text-slate-700"
-            >
-              <FaGithub className="h-5 w-5" />
-            </a>
-          )}
-          {liveLink && (
-            <a
-              href={liveLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Live demo"
-              className="text-slate-400 transition-colors hover:text-slate-700"
-            >
-              <Globe className="h-5 w-5" />
-            </a>
-          )}
+        <div className="flex items-center gap-2">
+          <Avatar className="h-7 w-7">
+            <AvatarImage src={user?.image ?? ""} alt={user?.name ?? "User"} />
+            <AvatarFallback className="bg-indigo-100 text-xs font-semibold text-indigo-600">
+              {"?"}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <h1 className="font-medium">{user?.name ?? "User"}</h1>
+            <p className="truncate text-xs text-slate-400">{user?.email}</p>
+          </div>
         </div>
       </CardContent>
 

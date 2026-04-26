@@ -15,4 +15,10 @@ export interface Project {
   liveLink: string;
   techStack: string[];
   thumbnail: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    image: string;
+  };
 }
