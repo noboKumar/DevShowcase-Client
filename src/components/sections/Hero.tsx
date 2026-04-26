@@ -15,7 +15,7 @@ const Hero = () => {
   return (
     <div className="relative flex min-h-screen w-full flex-col items-start justify-start overflow-hidden">
       <BackgroundRippleEffect />
-      <div className="md:mt-40 mt-20 w-full space-y-5">
+      <div className="mt-20 w-full space-y-5 md:mt-40">
         <h2 className="relative z-10 mx-auto max-w-4xl text-center text-4xl font-bold text-neutral-800 md:text-4xl lg:text-7xl dark:text-neutral-100">
           The ultimate <span className="text-indigo-500">stage</span> <br /> for
           your professional code.

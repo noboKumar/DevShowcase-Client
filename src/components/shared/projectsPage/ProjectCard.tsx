@@ -70,7 +70,9 @@ const ProjectCard = ({ projects }: { projects: Project }) => {
           <CardTitle className="text-2xl">{title}</CardTitle>
           <Badge className={`border ${categoryClass}`}>{category}</Badge>
         </div>
-        <CardDescription className="max-w-3xl">{description}</CardDescription>
+        <CardDescription className="line-clamp-1 max-w-3xl">
+          {description}
+        </CardDescription>
       </CardHeader>
 
       <CardContent className="flex flex-col gap-5">

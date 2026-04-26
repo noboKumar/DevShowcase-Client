@@ -14,3 +14,8 @@ export const deleteProject = async (id: string) => {
   const res = await axiosInstance.delete(`/projects/delete-project/${id}`);
   return res.data.data;
 };
+
+export const getFeatured = async () => {
+  const res = await axiosInstance.get("/projects/get-projects?featured=true");
+  return res.data.data;
+};
