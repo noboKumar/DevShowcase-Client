@@ -9,15 +9,28 @@ import {
 } from "@/components/ui/table";
 import { Project } from "@/types";
 import Image from "next/image";
-import { getMyProjects } from "@/lib/api";
 import { Button } from "../ui/button";
-import { Eye, Trash2 } from "lucide-react";
+import { Eye } from "lucide-react";
 import UpdateBtn from "../ui/UpdateBtn";
 import Link from "next/link";
+import { DeleteBtn } from "../ui/DeleteBtn";
+import { axiosInstance } from "@/lib/axios";
+import { cookies } from "next/headers";
 
 const ManageProjectTable = async () => {
+  const getMyProjects = async () => {
+    const cookieStore = await cookies();
+    const cookieHeader = cookieStore.toString();
+
+    const res = await axiosInstance.get("/projects/my-projects", {
+      headers: {
+        Cookie: cookieHeader,
+      },
+    });
+    return res.data.data;
+  };
+
   const projectsData = await getMyProjects();
-  console.log(projectsData);
 
   return (
     <div>
@@ -73,7 +86,12 @@ const ManageProjectTable = async () => {
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     {/* view btn */}
-                    <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8"
+                      asChild
+                    >
                       <Link href={`/projects/${project.id}`}>
                         <Eye className="h-4 w-4 text-blue-500" />
                       </Link>
@@ -81,9 +99,7 @@ const ManageProjectTable = async () => {
                     {/* update btn */}
                     <UpdateBtn projects={project} />
                     {/* delete btn */}
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Trash2 className="h-4 w-4 text-red-500" />
-                    </Button>
+                    <DeleteBtn id={project.id} />
                   </div>
                 </TableCell>
               </TableRow>
