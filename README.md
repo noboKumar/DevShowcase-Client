@@ -5,12 +5,12 @@ DevShowcase is a modern developer project showcase platform built with **Next.js
 ## 🌐 Live Demo
 
 Add your deployed link here:
-`https://your-live-demo-link.vercel.app`
+`https://dev-show-case-phi.vercel.app/`
 
 ## 📂 GitHub Repository
 
 Add your repository link here:
-`https://github.com/your-username/devshowcase`
+`https://github.com/noboKumar/DevShowcase-Client`
 
 ---
 
