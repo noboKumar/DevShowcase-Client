@@ -52,8 +52,13 @@ const NavBarUser = () => {
     : "";
 
   const handleSignOut = async () => {
-    await authClient.signOut();
-    router.push("/login");
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login");
+        },
+      },
+    });
   };
 
   if (isPending) {

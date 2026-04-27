@@ -39,6 +39,7 @@ const LoginForm = () => {
         onSuccess: (ctx) => {
           toast.success(`Welcome back ${ctx.data.user.name}!`);
           router.push("/");
+          console.log("full ctx.data:", ctx.data);
           console.log(ctx.data);
         },
 
