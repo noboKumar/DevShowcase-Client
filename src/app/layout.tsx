@@ -38,7 +38,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} h-full antialiased`}
     >
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,20 +22,14 @@ const NavMenu = () => {
       <DropdownMenuContent>
         <DropdownMenuGroup>
           <DropdownMenuLabel>Menu</DropdownMenuLabel>
-          <DropdownMenuItem>
-            <Link className="cursor-pointer" href="/">
-              Home
-            </Link>
+          <DropdownMenuItem asChild>
+            <Link href="/">Home</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link className="cursor-pointer" href="/projects">
-              Explore Projects
-            </Link>
+          <DropdownMenuItem asChild>
+            <Link href="/projects">Explore Projects</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link className="cursor-pointer" href="/about">
-              About
-            </Link>
+          <DropdownMenuItem asChild>
+            <Link href="/about">About</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
