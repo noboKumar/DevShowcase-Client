@@ -57,6 +57,9 @@ const NavBarUser = () => {
         onSuccess: () => {
           router.push("/login");
         },
+        onError: (ctx) => {
+          console.error("Sign out error:", ctx.error);
+        },
       },
     });
   };

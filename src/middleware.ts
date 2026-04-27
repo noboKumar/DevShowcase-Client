@@ -3,7 +3,7 @@ import { getSessionCookie } from "better-auth/cookies";
 import { NextRequest, NextResponse } from "next/server";
 
 export const config = {
-  matcher: ["/projects/add/:path*", "/projects/manage/:path*"],
+  matcher: ["/projects/add/:path*", "/projects/manage/:path*", "/profile/:path*"],
 };
 
 export function middleware(req: NextRequest) {
