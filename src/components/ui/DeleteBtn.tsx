@@ -35,7 +35,7 @@ export function DeleteBtn({ id }: { id: string }) {
           <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
             <Trash2Icon />
           </AlertDialogMedia>
-          <AlertDialogTitle>Delete chat?</AlertDialogTitle>
+          <AlertDialogTitle>Delete Data?</AlertDialogTitle>
           <AlertDialogDescription>
             This will permanently delete this Data.
           </AlertDialogDescription>
