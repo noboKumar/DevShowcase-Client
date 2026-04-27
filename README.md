@@ -176,7 +176,7 @@ npm start
 
 ## 👨‍💻 Author
 
-Built by **Your Name**
+Built by **@noboKumar**
 
 ---
 
