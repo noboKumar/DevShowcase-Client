@@ -1,3 +1,4 @@
+import CommunityStats from "@/components/sections/Communitystats";
 import CtaBanner from "@/components/sections/CtaBanner";
 import Featured from "@/components/sections/Featured";
 import Hero from "@/components/sections/Hero";
@@ -9,6 +10,7 @@ const page = () => {
       <Hero></Hero>
       <Featured></Featured>
       <Testimonial></Testimonial>
+      <CommunityStats></CommunityStats>
       <CtaBanner></CtaBanner>
     </div>
   );
