@@ -21,9 +21,7 @@ const Hero = () => {
           your professional code.
         </h2>
         <p className="relative z-10 mx-auto mt-4 max-w-xl text-center font-medium text-gray-500 dark:text-neutral-500">
-          DevShowcase is the premium SaaS platform for developers to exhibit
-          high-fidelity engineering projects and connect with top-tier tech
-          companies.
+          The ultimate platform for developers to showcase their best projects, discover inspiration, and connect with the community.
         </p>
         <div className="my-5 space-x-4 text-center">
           <Button asChild className="z-50 rounded-full px-5 py-6">
